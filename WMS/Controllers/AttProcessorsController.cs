@@ -258,21 +258,35 @@ namespace WMS.Controllers
         //
         // GET: /AttProcessors/Delete/5
  
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            AttProcessorScheduler attprocessor = context.AttProcessorSchedulers.Single(x => x.AttProcesserSchedulerID == id);
-            return View(attprocessor);
+            
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AttProcessorScheduler attprocessor = context.AttProcessorSchedulers.Find(id);
+            context.AttProcessorSchedulers.Remove(attprocessor);
+            context.SaveChanges();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("Index");
         }
 
         //
         // POST: /AttProcessors/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            AttProcessorScheduler attprocessor = context.AttProcessorSchedulers.Single(x => x.AttProcesserSchedulerID == id);
+            
+            AttProcessorScheduler attprocessor = context.AttProcessorSchedulers.Find(id);
             context.AttProcessorSchedulers.Remove(attprocessor);
             context.SaveChanges();
+            int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
+            HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Designation, (byte)MyEnums.Operation.Delete, DateTime.Now);
             return RedirectToAction("Index");
         }
         public ActionResult GetEmpInfo(string ID)

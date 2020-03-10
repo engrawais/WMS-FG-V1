@@ -58,7 +58,9 @@
              Created By
     
         </th>
-@*<th style="width:90px">Edit|View|Delete</th>*@
+        <th>
+            Delete
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -119,11 +121,12 @@
         <td>
             @item.User.Name
         </td>
-@* <td>
-          @Html.ActionLink(" ", "Edit", new { id=item.AttProcesserSchedulerID} , new { @class = "glyphicon glyphicon-pencil btn btn-warning btn-sm btn-EditViewDelete" })
-          @Html.ActionLink(" ", "Details", new { id = item.AttProcesserSchedulerID}, new { @class = "glyphicon glyphicon-list btn btn-primary btn-sm btn-EditViewDelete" }) 
-          @Html.ActionLink(" ", "Delete", new { id=item.AttProcesserSchedulerID }, new { @class = "glyphicon glyphicon-trash btn btn-danger btn-sm" })
-          </td>*@
+        <td>
+            @if (item.User.Name == "Workforce Management System")
+            { 
+                @Html.ActionLink(" ", "Delete", new { id = item.AttProcesserSchedulerID }, new { @class = "glyphicon glyphicon-trash btn btn-danger btn-sm" })
+            }
+        </td>
     </tr>
 }
 
