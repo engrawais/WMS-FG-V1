@@ -1,0 +1,84 @@
+﻿@model WMS.Controllers.VMOTEditor
+
+
+@{
+    ViewBag.Title = "SingleEmpEditOT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Employee Approved Overtime Editor</h3> 
+
+@using (Html.BeginForm("SaveEmpOT", "ApprovedOT", FormMethod.Post))
+{
+    
+    <hr />
+    <input hidden type="text" name="dateFrom" id="dateFrom" value="@Model.dtFrom" />
+    <input hidden type="text" name="dateTo" id="dateTo" value="@Model.dtTo" />
+    <input hidden type="text" name="EmpNo" id="EmpNo" value="@Model.EmpNo" />
+    <input hidden type="text" name="CompanyID" id="CompanyID" value="@Model.CompanyID" />
+    <input hidden type="text" name="Count" id="Count" value="@Model.Count" />
+    <input hidden type="text" name="EmpID" id="EmpID" value="@Model.EmpID" />
+    
+    var grid = new WebGrid(Model.OTList, canSort: false, canPage: false);
+    int rowNum = 0;
+    <div>
+        @grid.GetHtml(columns:
+            grid.Columns
+            (
+                grid.Column("Sr.No", format: item => rowNum = rowNum + 1),
+              
+                
+               grid.Column("Att Date", format: (item) => Html.TextBox("Att Date" + (rowNum - 1).ToString(), (object)item.AttDate, new { style = " width:68px;", @disabled="disabled"  })),                
+                grid.Column("", format: (item) => Html.TextBox("AttDate" + (rowNum - 1).ToString(), (string)item.AttDate, new { @hidden = true })),
+               grid.Column("", format: (item) => Html.TextBox("EmpDate" + (rowNum - 1).ToString(), (string)item.EmpDate, new { @hidden = true })),
+                 grid.Column("EmpNo", format: (item) => Html.TextBox("EmpNo" + (rowNum - 1).ToString(), (object)item.EmpNo, new {style =" width:40px;" ,@disabled="disabled" })),
+                 grid.Column("EmpName", format: (item) => Html.TextBox("EmpName" + (rowNum - 1).ToString(), (object)item.Name, new {style =" width:160px;" ,@disabled="disabled" })),
+                   
+                  grid.Column("DesignationName", format: (item) => Html.TextBox("Designation" + (rowNum - 1).ToString(), (object)item.DesignationName, new {style =" width:80px;" ,@disabled="disabled" })), 
+                
+                 grid.Column("SectionName", format: (item) => Html.TextBox("Section" + (rowNum - 1).ToString(), (object)item.SectionName, new { style = " width:80px;", @disabled="disabled"  })),
+                  grid.Column("Actual OT", format: (item) => Html.TextBox("ActualOT" + (rowNum - 1).ToString(), (object)item.ActualOTHours, new {style =" width:40px;" ,@disabled="disabled" })),
+                   grid.Column("", format: (item) => Html.TextBox("ActualOT" + (rowNum - 1).ToString(), (string)item.ActualOTHours, new { @hidden = true })),
+                    //grid.Column("ShiftName", format:(item)=> Html.DropDownList("Shift" + (rowNum - 1).ToString(), (object)item.ShiftName, new { style = " width:80px;"})),
+                    grid.Column("ShiftName", format: @<text>@Html.DropDownList("Shift" + (rowNum - 1).ToString(), new SelectList(Model.Shifts, "ShiftID", "ShiftName", item.ShiftID))</text>),
+                   grid.Column("Approved OT", format: (item) => Html.TextBox("ApprovedOT" + (rowNum - 1).ToString(), (object)item.ApprOTHours, new {style =" width:40px;" }))
+            ), mode: WebGridPagerModes.Numeric)
+    </div>
+    <input type="submit" value="Submit" class="btn btn-default" />
+}
+<style type="text/css">
+    table
+    {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+    table th
+    {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+    table td
+    {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #ffffff;
+    }
+    input
+    {
+        width:100px;
+    }
+    .DropDownList
+{
+    width:154px;
+    font-size:11px;
+}
+</style>

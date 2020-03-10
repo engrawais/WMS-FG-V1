@@ -1,0 +1,110 @@
+﻿@model WMS.Controllers.VMEmailParent
+
+@{
+    ViewBag.Title = "EmailParent";
+}
+
+<h3>Email Entry Create Form</h3>
+
+@using (Html.BeginForm("EmailParent", "Email", FormMethod.Post, new { id = "EmailFormID" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h5>Add Email Address and configure with company structure</h5>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                TO Email Address
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.ToEmail, new { @class = "form-control", @style = "width:800px;" })
+                @Html.ValidationMessageFor(model => model.ToEmail)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                CC Email Address
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CCEmail, new { @class = "form-control col-md-4", @style = "width:800px;" })
+                @Html.ValidationMessageFor(model => model.CCEmail)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IsPreviousDate) Is Previous Date
+                @Html.ValidationMessageFor(model => model.IsPreviousDate)
+            </div>
+        </div>
+        @if (Model.PID == 0)
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="Next" id="next" name="next" class="btn btn-sm btn-default" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-sm btn-primary " })
+                </div>
+            </div>
+        }
+    </div>
+}
+<div id="Prview"></div>
+<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Choose Values</h4>
+            </div>
+            <br />
+            <div id="modelBody">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        @if(Model.PID>0)
+        {
+            <text> LoadPVList(@Model.PID)</text>
+        }
+        $('#next').click(function () {
+            $.ajax({
+                url: '/Email/EmailParent',
+                type: 'POST',
+                data: $("#EmailFormID").serialize(),
+                success: function (_parentid) {
+                    LoadPVList(_parentid);
+                },
+                error: function () {
+                    $("#result").text('an error occured')
+
+                }
+            });
+        });
+    });
+    function LoadPVList(_parentid) {
+        $.ajax({
+            url: '/Email/ChildList',
+            datatype: "json",
+            type: "Get",
+            contenttype: 'application/json; charset=utf-8',
+            data: { "parentID": _parentid },
+            success: function (data) {
+                $("#Prview").html(data);
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+    }
+</script>

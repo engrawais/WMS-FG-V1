@@ -1,0 +1,30 @@
+﻿@model IEnumerable<WMS.Controllers.VMPVIndex>
+
+@{
+    ViewBag.Title = "Index";
+}
+<table class="table table-bordered table-hover  table-condensed">
+    <tr class="table-header">
+        <th>
+            Fiter Type
+        </th>
+        
+        <th>
+            Filter Value
+        </th>
+        <th>Edit | View | Delete</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilterTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilterValueName)
+            </td>
+        </tr>
+    }
+
+</table>

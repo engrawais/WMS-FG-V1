@@ -1,0 +1,69 @@
+﻿@model List<WMS.Controllers.VMSystemMissingAtt>
+@{
+    ViewBag.Title = "FSMLSystemMissing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br /><br />
+@using (Html.BeginForm("FSMLSystemMissing2", "EditAttendance", FormMethod.Post))
+{
+    <div class="form-inline">
+        <div class="form-group mb-2">
+            <label for="staticEmail2" class="sr-only">Start</label>
+            <input type="date" class="form-control-plaintext" id="DateStart" required name="DateStart" value="@ViewBag.StartDate">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="staticEmail2" class="sr-only">End</label>
+            <input type="date" class="form-control-plaintext" name="DateEnd" required id="DateEnd" value="@ViewBag.EndDate">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">GO</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover  table-condensed">
+            <tr class="table-header">
+                <th>
+                    EmpNo
+                </th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Attendance Date</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th>Expected IN</th>
+                <th>Expected OUT</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmpNo)
+                    </td>
+                    <td>
+                         @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                         @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                         @Html.DisplayFor(modelItem => item.AttDate)
+                    </td>
+                    <td>
+                         @Html.DisplayFor(modelItem => item.IN)
+                    </td>
+                    <td>
+                         @Html.DisplayFor(modelItem => item.OUT)
+                    </td>
+                    <td>
+                         @Html.DisplayFor(modelItem => item.EIN)
+                    </td>
+                    <td>
+                         @Html.DisplayFor(modelItem => item.EOUT)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}
+
+

@@ -1,0 +1,242 @@
+﻿@model WMS.Models.ViewPayrollData
+
+@{
+    ViewBag.Title = "Details";
+   
+}
+
+<div class="col-md-12" >
+ <div class="col-md-4" style="margin-top:15px">
+    
+
+<div>
+    <h3>Basic Information</h3>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Emp No
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmpNo)
+        </dd>
+
+       
+        <dt>
+           Name
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmpName)
+        </dd>
+        <dt>
+           Designation
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesignationName)
+        </dd>
+
+        <dt>
+           Section
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionName)
+        </dd>
+
+        <dt>
+           Company
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompName)
+        </dd>
+
+        
+        
+        <dt>
+           Badli PNo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BadliPNo)
+        </dd>
+
+        <dt>
+            Badli Company ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BadliCompanyID)
+        </dd>
+
+        
+
+        <dt>
+            Approved
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approved)
+        </dd>
+
+        
+    </dl>
+</div>
+
+ </div>
+<div class="col-md-4" style="margin-top:15px">
+    
+
+<div>
+    <h3>Attendance</h3>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Start Date
+        </dt>
+
+        <dd>
+            @Model.StartDate.Value.ToString("dd-MMM-yyyy")
+        </dd>
+
+        <dt>
+            End Date
+        </dt>
+
+        <dd>
+           @Model.EndDate.Value.ToString("dd-MMM-yyyy")
+        </dd>
+
+        <dt>
+            Total Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalDays)
+        </dd>
+
+        <dt>
+            Earned Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EarnedDays)
+        </dd>
+
+        <dt>
+            Rest Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestDays)
+        </dd>
+
+        <dt>
+           Absent Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AbsentDays)
+        </dd>
+  
+   
+        <dt>
+            Late In Mins
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LateInMins)
+        </dd>
+
+        <dt>
+            OverTime Mins
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OverTimeMins)
+        </dd>
+
+
+        <dt>
+            Badli Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BadliDays)
+        </dd>
+
+
+    </dl>
+</div>
+
+</div>
+<div class="col-md-4" style="margin-top:15px">
+
+
+<div>
+    <h3>Leaves</h3>
+	<hr />
+    <dl class="dl-horizontal">
+       
+        <dt>
+           Sick Leave Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SickLeaveDays)
+        </dd>
+
+        <dt>
+            Annual Leave Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnnualLeaveDays)
+        </dd>
+
+        <dt>
+           Casual Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CasualDays)
+        </dd>
+
+        <dt>
+           Other Leave Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherLeaveDays)
+        </dd>
+
+        
+        <dt>
+           AL Encashment Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnnualLVEncashmentDays)
+        </dd>
+
+        
+
+    </dl>
+</div>
+
+</div>
+
+</div>
+<div>
+    <p>
+        @Html.ActionLink("Approved", "Approved", new { id = Model.EmpMonthYear })|
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmpMonthYear }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+</div>

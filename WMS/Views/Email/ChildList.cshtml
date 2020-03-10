@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WMS.Controllers.VMPVIndex>
+@{
+    Layout = null;
+}
+<div class="row no-margin">
+    <div class="col-md-6"><h4>List of Selected Filters</h4> </div>
+    <div class="col-md-6"><input type="button" value="Add New Filter" id="add" name="add" class="btn btn-sm btn-success" /></div>
+</div>
+<input type="hidden" id="emailEntryParentID"value="@ViewBag.PID"/>
+<table class="table table-bordered table-condensed table-hover">
+    <tr>
+        <th>
+            Filter Type
+        </th>
+        <th>
+            Filter Value
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilterTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilterValueName)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.PID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#add').click(function () {
+            $.ajax({
+                type: "GET",
+                url: "/Email/PVModel",
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                data: { "pID": @ViewBag.PID },
+                success: function (url) {
+                    $('#modelBody').html(url);
+                    $('#myModal').modal('show');
+
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+    });
+</script>

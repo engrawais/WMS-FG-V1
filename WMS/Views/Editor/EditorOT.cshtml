@@ -1,0 +1,201 @@
+﻿@model WMS.Models.ViewAttDataOT
+@{
+    ViewBag.Title = "EditAttWizardOne";
+}
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.focus :input').focus();
+    });
+</script>
+<h3>Edit Overtime for @Model.EmpName</h3>
+@using (Html.BeginForm("EditorOTNew", "Editor", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row"> 
+</div>
+    <br />
+    <section class="col-md-12">
+        <section class="col-md-6">
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.EmpDate)
+        @Html.HiddenFor(model => model.EmpID)  
+        @Html.HiddenFor(model => model.AttDate)               
+            <div class="col-md-6">
+           @*<h4 style="margin-bottom:20px;">Enter New Time In and Out</h4>*@                            
+             <div class="form-group">
+                <div class="col-md-5">
+                  Time In1
+                </div>
+                <div class="focus col-md-7">
+                     @if (Model.Tin1 != null)
+                {
+                    <input type="number" step="1" max= "2400" min= "0" id="Tin1" name="Tin1" class="form-control" value="@Model.Tin1.Value.ToString("HHmm")">
+                }
+                else
+                {
+                   <input type="number" step="1" max= "2400" min= "0" id="Tin1" name="Tin1" class="form-control" value="0000">
+                }
+                </div>
+             </div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    Time Out1
+                </div>
+                <div class="col-md-7">
+                    @*@Html.Editor("OutHour")*@
+                     @if (Model.Tout1 != null)
+                {
+                    <input type="number" step="1" max= "2400" min= "0" id="Tout1" name="Tout1" class="form-control"value="@Model.Tout1.Value.ToString("HHmm")">
+                }
+                else
+                {
+                   <input type="number" step="1" max= "2400" min= "0" id="Tout1" name="Tout1" class="form-control"value="0000">
+                }
+                    
+                </div>
+             </div> 
+                <div class="form-group">
+                <div class="col-md-5">
+                    Time In2
+                </div>
+                <div class="focus col-md-7">
+                     @if (Model.Tin2 != null)
+                {
+                    <input type="number" step="1" max= "2400" min= "0" id="Tin2" name="Tin2" class="form-control" value="@Model.Tin2.Value.ToString("HHmm")">
+                }
+                else
+                {
+                   <input type="number" step="1" max= "2400" min= "0" id="Tin2" name="Tin2" class="form-control" value="0000">
+                }
+                </div>
+             </div>  
+                <div class="form-group">
+                <div class="col-md-5">
+                    Time Out2
+                </div>
+                <div class="focus col-md-7">
+                     @if (Model.Tout2 != null)
+                {
+                    <input type="number" step="1" max= "2400" min= "0" id="Tout2" name="Tout2" class="form-control" value="@Model.Tout2.Value.ToString("HHmm")">
+                }
+                else
+                {
+                   <input type="number" step="1" max= "2400" min= "0" id="Tout2" name="Tout2" class="form-control" value="0000">
+                }
+                </div>
+             </div> 
+                <div class="form-group">
+                <div class="col-md-5">
+                    Time In3
+                </div>
+                <div class="focus col-md-7">
+                     @if (Model.Tin3 != null)
+                {
+                    <input type="number" step="1" max= "2400" min= "0" id="Tin3" name="Tin3" class="form-control" value="@Model.Tin3.Value.ToString("HHmm")">
+                }
+                else
+                {
+                   <input type="number" step="1" max= "2400" min= "0" id="Tin3" name="Tin3" class="form-control" value="0000">
+                }
+                </div>
+             </div> 
+                <div class="form-group">
+                <div class="col-md-5">
+                    Time Out3
+                </div>
+                <div class="focus col-md-7">
+                     @if (Model.Tout3 != null)
+                {
+                    <input type="number" step="1" max= "2400" min= "0" id="Tout3" name="Tout3" class="form-control" value="@Model.Tout3.Value.ToString("HHmm")">
+                }
+                else
+                {
+                   <input type="number" step="1" max= "2400" min= "0" id="Tout3" name="Tout3" class="form-control" value="0000">
+                }
+                </div>
+             </div>
+                <div class="form-group">
+                <div class="col-md-5">
+                    Remarks
+                </div>
+                <div class="focus col-md-2">                            
+                    <input type="text" id="Remarks" name="Remarks" class="form-control" value="@Model.Remarks">                           
+                </div>
+             </div>                                          
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-sm btn-success" />
+                    <a href="~/Editor" class="btn btn-sm btn-warning">Back</a>
+                </div>
+            </div>
+            <p style="color:green; font-size:15px;">@ViewBag.SucessMessage</p>
+        </div>         
+    </div>
+            </section>       
+       <section class="col-md-6" style="height:620px; margin-top:5%"> 
+           <div class="row">
+            <div class="col-md-3">
+               Emp No
+            </div>
+            <div class="col-md-4">
+                @Model.EmpNo
+            </div>
+        </div> 
+           <div class="row">
+            <div class="col-md-3">
+               Employee Name
+            </div>
+            <div class="col-md-4">
+                @Model.EmpName
+            </div>
+        </div>   
+           <div class="row">
+            <div class="col-md-3">
+                Father Name
+            </div>
+            <div class="col-md-4">
+                @Model.FatherName
+            </div>
+        </div>             
+            <div class="row">
+            <div class="col-md-3">
+                Designation
+            </div>
+            <div class="col-md-4">
+                @Model.DesignationName
+            </div>
+        </div>          
+            <div class="row">
+            <div class="col-md-3">
+               Department
+            </div>
+            <div class="col-md-4">
+                @Model.DeptName
+            </div>
+        </div> 
+           <div class="row">
+            <div class="col-md-3">
+               Section
+            </div>
+            <div class="col-md-4">
+                @Model.SectionName
+            </div>
+        </div>              
+        </section>
+    </section>
+}
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#date1").mask("99/99/9999", { placeholder: "mm/dd/yyyy" });
+        $("#phone").mask("(999) 999-9999");
+        $("#tin").mask("99-9999999");
+        $("#ssn").mask("999-99-9999");
+    });
+</script>
+

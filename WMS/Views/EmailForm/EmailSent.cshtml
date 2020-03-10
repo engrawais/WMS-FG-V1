@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WMS.Models.ViewEmailSent>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br>
+@using (Html.BeginForm("EmailSent", "EmailForm", FormMethod.Get))
+{
+    <legend>Email Sender Status</legend>
+<div class="widget-body">
+    <div class="well bs-component">
+        <div class="form-inline">
+            <form class="form-inline" action="/action_page.php">
+                <div class="form-group">
+                    <label for="email">From Date:</label>
+                   <input type="date" class="form-control" value="@ViewBag.DTS" name="dts" id="dts"/>
+                </div>
+                <input type="submit" value="Next" class="btn btn-sm btn-success" />
+            </form>
+        </div>
+    </div>
+</div>
+}
+
+            <br />
+            <div class="form-horizontal">
+                   <table class="table table-bordered table-hover  table-condensed">
+                       <thead>
+                           <tr class="table-header">
+                               <th>Section
+                               </th>
+                               <th class="text-bold">Type
+                               </th>
+                               <th class="text-bold">Criteria
+                               </th>
+                               <th class="text-bold">Email Address
+                               </th>
+                               @*<th class="text-bold">CC Address
+                               </th>*@
+                               <th class="text-bold">Is Send
+                               </th>
+<th class="text-bold">Sent DateTime
+                               </th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.SectionName)
+                                    </td>
+
+                                    <td>@Html.DisplayFor(modelItem => item.TypeName)
+                                    </td>
+<td>@Html.DisplayFor(modelItem => item.CriteriaComLoc)
+                                    </td>
+                                    
+                                    <td>@Html.DisplayFor(modelItem => item.EmailAddress)
+                                    </td>
+                                   @* <td>@Html.DisplayFor(modelItem => item.CCAddress)
+                                    </td>*@
+<td>@Html.DisplayFor(modelItem => item.IsSent)
+                                    </td>
+                                    <td>
+@if(item.SendDateTime!=null){<span>@item.AttDate.Value.ToString("dd-MM-yyyy")</span>}
+                                    </td>
+                                   
+                                </tr>
+                           }
+                       </tbody>
+                   </table>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" value="Save" class="btn btn-sm btn-success" />
+                    </div>
+                </div>
+            </div>

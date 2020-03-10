@@ -1,0 +1,254 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "Index";
+    ViewBag.Title = "EditAttWizardOne";
+}
+<html>
+<head>
+    <script type="text/javascript">
+        $(function () {
+            $('.focus :input').focus();
+        });
+    </script>
+
+</head>
+<body>
+    <div class="row col-md-12">
+        <h3>Edit Attendance</h3>
+        <hr />
+    </div>
+    <p class="ErorrMessage">@ViewBag.Message</p>
+    <article class="row">
+
+        @using (Html.BeginForm("EditAttWizardOne", "EditAttendance", FormMethod.Post))
+        {
+            <section class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h5><strong>Edit Manual In/ Out</strong></h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label">Company Name</label>
+                                @Html.DropDownList("CompanyID", null, new { @class = "btn btn-default dropdown-toggle col-lg-12 col-sm-12 col-sm-12" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label">Date</label>
+                                <input id="DateFrom" name="DateFrom" value="@ViewData["datef"]" type="date" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label">Employee No</label>
+                                <input id="EmpNo" name="EmpNo" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <button class="btn btn-success btn-md" type="submit"><strong>Next &nbsp;<i class="glyphicon glyphicon-forward"></i> </strong></button>
+                    </div>
+                </div>
+            </section>
+        }
+
+        @using (Html.BeginForm("EditAttJobCard", "EditAttendance", FormMethod.Post))
+        {
+            <section class="col-sm-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h5>
+                            <strong>Assign Job Card</strong> <span class=" pull-right">
+                                @Html.ActionLink("List of Job Cards", "ListOfJobCardApp", null, new { @class = "btn btn-primary btn-sm" })
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="radio"><label><input type="radio" value="shift" name="cars">By Shift</label></div>
+                                <div class="radio"><label><input type="radio" value="crew" name="cars">By Crew</label></div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="radio"><label><input type="radio" value="section" name="cars">By Section</label></div>
+                                <div class="radio"><label><input type="radio" checked value="employee" name="cars">By Employee</label></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label">From</label>
+                                <input id="JobDateFrom" name="JobDateFrom" value="@ViewData["JobDateFrom"]" type="date" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group-sm">
+                            <div class="col-sm-12">
+                                <label class="control-label">To</label>
+                                <input id="JobDateTo" name="JobDateTo" type="date" value="@ViewData["JobDateTo"]" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group-sm">
+                            <div class=" col-sm-12 ">
+                                <label class="control-label">Job Card</label>
+                                @Html.DropDownList("JobCardType", null, new { @class = "btn btn-default dropdown-toggle col-lg-12 col-sm-12 col-sm-12" })
+                            </div>
+                        </div>
+                        <div class="form-group-sm">
+                            <div class=" col-sm-12 ">
+                                <label class="control-label">Company</label>
+                                @Html.DropDownList("CompanyIDJobCard", null, new { @class = "btn btn-default dropdown-toggle col-lg-12 col-sm-12 col-sm-12" })
+                            </div>
+                        </div>
+                        <div class="form-group-sm desc">
+                            <div class="col-sm-12" id="Option1">
+                                <label class="control-label">Shift</label>
+                                @Html.DropDownList("shifts", null, new { @class = "btn btn-default dropdown-toggle col-lg-12 col-sm-12 col-sm-12" })
+                            </div>
+                            <div class="col-sm-12" id="Option2">
+                                <label class="control-label">Crew</label>
+                                @Html.DropDownList("CrewList", null, new { @class = "btn btn-default dropdown-toggle col-lg-12 col-sm-12 col-sm-12" })
+                            </div>
+                            <div class="col-sm-12" id="Option3">
+                                <label class="control-label">Section</label>
+                                @Html.DropDownList("SectionList", null, new { @class = "btn btn-default dropdown-toggle col-lg-12 col-sm-12 col-sm-12" })
+                            </div>
+
+                            <div class="col-sm-12" id="Option4">
+                                <label class="control-label">Employee</label>
+                                <div class="input-group">
+                                    <input id="JobEmpNo" name="JobEmpNo" type="text" class="form-control" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" id="buttonId2" name="buttonId2" style="padding-bottom:.6em">
+                                            Search   <i class="icon-plus" style="color:#0084B4 "></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-sm" id="doubleDutyDiv">
+                            <div class="col-sm-12">
+                                <label class="control-label">Work Mins</label>
+                                <input id="DDWorkMins" name="DDWorkMins" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group-sm" id="BadliDiv">
+                            <div class="col-sm-12">
+                                <label class="control-label">Designation</label>
+                                @Html.DropDownList("DesignationID", null, new { @class = "btn btn-default dropdown-toggle col-lg-12 col-sm-12 col-sm-12" })
+                            </div>
+                            <p class="ErorrMessage">@ViewBag.CMessage</p>
+                        </div>
+
+                    </div>
+
+                    <div class="panel-footer text-center">
+                        <button class="btn btn-success btn-md" type="submit"><strong>Save &nbsp;<i class="glyphicon glyphicon-save"></i> </strong></button>
+                    </div>
+                </div>
+            </section>
+        }
+
+            <div id="EmpDetails">
+                <section class="col-sm-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h5><strong>Employee Information</strong></h5>
+                        </div>
+                        <div class="panel-body">
+                               <div class="form-horizontal">
+                                <div class="col-sm-12">
+                                    <div class="form-group-sm">
+                                        <label class="control-label">Employee Name</label>
+                                        <input id="EName" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group-sm">
+                                        <label class="control-label">Father's Name</label>
+                                        <input id="EFName" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group-sm">
+                                        <label class="control-label">Date Of Joining</label>
+                                        <input id="EDOJ" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">Designation</label>
+                                        <input id="EDesignation" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">Section</label>
+                                        <input id="ESection" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">EMP No</label>
+                                        <input id="EMPNO" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">Employee Type</label>
+                                        <input id="EMPTYPE" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">Cell No</label>
+                                        <input id="ECELLNO" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">Ph No</label>
+                                        <input id="EPHNO" type="text" class="form-control disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">Address</label>
+                                        <textarea id="EADDR" type="text" class="form-control disabled" cols="10" rows="10"> </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+
+
+    </article>
+
+</body>
+</html>
+<script src="@Url.Content("~/Scripts/EditAttendance.js")"></script>
+<script src="@Url.Content("~/Scripts/Shift/GetUserSpecificShifts.js")"></script>
+<script src="@Url.Content("~/Scripts/EmpInfoEditAtt.js")">
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#JobDateFrom').change(function () {
+            document.getElementById("JobDateTo").value = document.getElementById("JobDateFrom").value;
+        });
+        $('#DateFrom').change(function () {
+            document.getElementById("JobDateTo").value = document.getElementById("DateFrom").value;
+            document.getElementById("JobDateFrom").value = document.getElementById("DateFrom").value;
+        });
+    });
+</script>

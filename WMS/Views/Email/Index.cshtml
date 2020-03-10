@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WMS.Controllers.VMPVIndex>
+
+<div>
+    <form class="form-inline" role="form">
+        <div class="form-group"> <h3>List of Filters</h3> </div>
+        <div class="form-group CreateBtnMargin"><p>@Html.ActionLink("Add New", "EmailParent", null, new { @class = "btn btn-sm btn-success" })</p></div>
+    </form>
+</div>
+<input type="hidden" id="emailEntryParentID" value="@ViewBag.PID" />
+<div class="table-responsive">
+    <table class="table table-bordered table-hover  table-condensed">
+        <tr class="table-header">
+           <th> Filter Type
+            </th>
+            <th>
+                Filter Value
+            </th>
+            <th>Delete</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FilterTypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FilterValueName)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PID })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

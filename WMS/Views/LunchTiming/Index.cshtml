@@ -1,0 +1,193 @@
+﻿@model List<WMS.Controllers.VMAttDataDetails>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Lunch Timing";
+}
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+
+        table th {
+            
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    th {
+        background-color: #772953;
+        color: white;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 4px;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #cecfd5;
+    }
+
+    th,
+    td {
+        padding: 10px 15px;
+    }
+
+</style>
+<br />
+@using (Html.BeginForm("Index", "LunchTiming", FormMethod.Post))
+{
+    <legend>Lunch Timing</legend>
+    <div class="widget-body">
+        <div class="well bs-component">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">From</label>
+                    <input id="JobDateFrom" name="JobDateFrom" value="@ViewData["JobDateFrom"]" type="date" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">To</label>
+                    <input id="JobDateTo" name="JobDateTo" type="date" value="@ViewData["JobDateTo"]" class="form-control" />
+                </div>
+                <input type="submit" value="Next" id="next" class="btn btn-sm btn-info" />
+                <input type="button" class="btn btn-success" id="btnExport" name="btnExport" value="Download in Excel" style="margin-left:44%" />
+            </div>
+        </div>
+    </div>
+}
+<div class="table-responsive" id="tblCustomers">
+    <table id="tblCustomers" class="table" cellpadding="0" cellspacing="0">
+        <tr class="table-header">
+            <th>
+                Date
+            </th>
+            <th>
+                P.NO
+            </th>
+            <th>
+                Emp Name
+            </th>
+            <th>
+                Out:0
+            </th>
+            <th>
+                In:0
+            </th>
+            <th>
+                Total 0
+            </th>
+            <th>
+                Out:1
+            </th>
+            <th>
+                In:1
+            </th>
+            <th>
+                Total 1
+            </th>
+            <th>
+                Out:2
+            </th>
+            <th>
+                In:2
+            </th>
+            <th>
+                Total 2
+            </th>
+            <th>
+                Total Work
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.AttDate != null)
+                    {
+                        @item.AttDate.ToString("ddMMMyyyy");
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpName)
+                </td>
+                <td>
+                    @if (item.Tout0 != null)
+                    {
+                        @item.Tout0.Value.ToString("HH:mm");
+                    }
+                </td>
+                <td>
+                    @if (item.Tin0 != null)
+                    {
+                        @item.Tin0.Value.ToString("HH:mm");
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total0)
+                </td>
+                <td>
+                    @if (item.Tout1 != null)
+                    {
+                        @item.Tout1.Value.ToString("HH:mm");
+                    }
+                </td>
+                <td>
+                    @if (item.Tin1 != null)
+                    {
+                        @item.Tin1.Value.ToString("HH:mm");
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total1)
+                </td>
+                <td>
+                    @if (item.Tout2 != null)
+                    {
+                        @item.Tout2.Value.ToString("HH:mm");
+                    }
+                </td>
+                <td>
+                    @if (item.Tin2 != null)
+                    {
+                        @item.Tin2.Value.ToString("HH:mm");
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AllTotal)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/table2excel.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnExport").click(function () {
+            $("#tblCustomers").table2excel({
+                filename: "LunchTimingReport.xls"
+            });
+        });
+    });
+</script>

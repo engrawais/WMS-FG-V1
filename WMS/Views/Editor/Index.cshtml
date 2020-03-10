@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index"; 
+}
+<br>
+<article class="row">
+    <section class="col-md-6">
+        <p style="font-size:16px; margin-bottom:30px;"> Overtime Editor</p>
+       @using (Html.BeginForm("EditorOT", "Editor", FormMethod.Post))
+        {
+           
+        <article class="row">
+            <section class="col-md-12">
+                 <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="col-md-4">
+                        <label>Company</label>
+                    </div>
+                    <div class="col-md-8">
+                         @Html.DropDownList("CompanyID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+
+                    </div>
+                </div>
+                 <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="col-md-4">
+                        <label>Date</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input id="DateFrom" name="DateFrom" value="@ViewData["datef"]" type="date" class="form-control"/>
+
+                    </div>
+                </div>
+                <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="col-md-4">
+                        <label>Employee No</label>
+                    </div>
+                    <div class="focus col-md-8">
+                        <input id="EmpNo" name="EmpNo" type="text" class="form-control"/>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" value="Next"  class="btn btn-sm btn-success"/>
+                    </div>
+                </div>
+            </section>
+            <section class="col-md-4">
+
+            </section>
+        </article>
+        }
+    </section>
+</article>

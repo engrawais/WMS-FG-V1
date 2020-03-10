@@ -1,0 +1,139 @@
+﻿@model WMS.Models.EmailEntryForm
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+<p id="demo"></p>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Add Emails</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+           <div class="col-md-3">Email Address</div>
+            <div class="col-md-9">
+                 @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">CC Address</div>
+            <div class="col-md-9">
+                 @Html.TextBoxFor(model => model.CCAddress, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CCAddress)
+            </div>
+        </div>
+
+         <div class="form-group">
+           <div class="col-md-3">Company/Location Criteria </div>
+            <div class="col-md-9">
+                 @Html.DropDownList("CriteriaComp",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+            </div>
+        </div>
+
+
+        <div id="CComp">
+            <div class="form-group">
+                    <div class="col-md-3">Company</div>
+                <div class="col-md-9">
+                    @Html.DropDownList("CompanyID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                    @Html.ValidationMessageFor(model => model.CompanyID)
+                </div>
+            </div>
+        </div>
+
+        <div id="SecDept">
+         <div class="form-group">
+           <div class="col-md-3">Section/Department</div>
+            <div class="col-md-9">
+                 @Html.DropDownList("CriteriaDepSec",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+            </div>
+        </div>
+         </div>
+        <div id="CDept" class="form-group">
+           <div class="col-md-3">Department</div>
+            <div class="col-md-9">
+                 <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="DepartmentID" name="DepartmentID"></select>
+                @*@Html.DropDownList("DepartmentID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                @Html.ValidationMessageFor(model => model.DepartmentID)*@
+            </div>
+        </div>
+
+        <div id="CSec" class="form-group">
+            <div class="col-md-3">Section</div>
+            <div class="col-md-9">
+                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="SectionID" name="SectionID"></select>
+                @*@Html.DropDownList("SectionID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                @Html.ValidationMessageFor(model => model.SectionID)*@
+            </div>
+        </div>
+
+
+        <div id="CLoc"class="form-group">
+           <div class="col-md-3">Location</div>
+            <div class="col-md-9">
+                @Html.DropDownList("LocationID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                @Html.ValidationMessageFor(model => model.LocationID)
+            </div>
+        </div>
+
+        <div class="form-group">
+           <div class="col-md-3">Date</div>
+            <div class="col-md-9">
+               @Html.DropDownList("ReportCurrentDate", new List<SelectListItem>
+                                    { 
+                                        new SelectListItem { Text = "Current Date", Value = "true"},
+                                        new SelectListItem { Text = "Previous Date", Value = "False", Selected=true}
+                                    },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+            </div>
+        </div>
+
+         <div class="form-group">
+            <div class="col-md-3">Employee Type/Category</div>
+            <div class="col-md-9">
+                 @Html.DropDownList("HasTypeOrCat",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+            </div>
+        </div>
+
+        <div id="CType" class="form-group">
+            <div class="col-md-3">Emp Type</div>
+            <div class="col-md-9">
+                @*@Html.DropDownList("TypID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})*@
+                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="TypID" name="TypID"></select>
+                @Html.ValidationMessageFor(model => model.TypID)
+            </div>
+        </div>
+        <div id="CCat" class="form-group">
+            <div class="col-md-3">Category</div>
+            <div class="col-md-9">
+                @*@Html.DropDownList("TypID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})*@
+                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="CatID" name="CatID"></select>
+                @Html.ValidationMessageFor(model => model.CatID)
+            </div>
+        </div>
+
+        
+
+        
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="@Url.Content("~/Scripts/EmailForm/EmailForm.js")"></script>

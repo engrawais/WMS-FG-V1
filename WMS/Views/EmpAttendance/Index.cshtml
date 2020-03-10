@@ -1,0 +1,175 @@
+﻿@model WMS.Controllers.VMOTEntry
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br>
+<br>
+@using (Html.BeginForm("GetAttendance", "EmpAttendance", FormMethod.Get))
+{
+    <legend>Employee Attendance</legend>
+    <div class="widget-body">
+        <div class="well bs-component">
+            <div class="form-inline">
+                <form class="form-inline" action="/action_page.php">
+                    <div class="form-group">
+                        <label for="email">From Date:</label>
+                        @Html.EditorFor(model => model.FromDate)
+                        @Html.ValidationMessageFor(model => model.FromDate)
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">To Date:</label>
+                        @Html.EditorFor(model => model.ToDate)
+                        @Html.ValidationMessageFor(model => model.ToDate)
+                    </div>
+                    <input type="submit" value="Next" class="btn btn-sm btn-success" />
+                </form>
+            </div>
+        </div>
+    </div>
+           
+}
+@using (Html.BeginForm("UpdateApprovedOT", "OTEditor", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.EmpID)
+    @Html.HiddenFor(model => model.FromDate)
+    @Html.HiddenFor(model => model.ToDate)
+    @Html.HiddenFor(model => model.Count)
+    <div class="row">
+    </div>
+    <br />
+    <section class="col-md-12">
+        <section class="col-md-12">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+                <div class="col-md-12">
+                     @if (@Model.dbViewAttData != null && @Model.dbViewAttData.Count > 0)
+                        {
+                    <small>
+                       
+                        <i class="ace-icon fa fa-angle-double-right"></i>
+                        
+                                <h4>List of Attenndance for: @Model.dbViewAttData.First().EmpName </h4>  
+                    </small>
+                     }
+                    <table class="table table-bordered table-hover  table-condensed">
+                        <thead>
+                            <tr class="table-header">
+                                <th class="text-bold">Date
+                                </th>
+                                <th class="text-bold">Shift Mints
+                                </th>
+                                <th class="text-bold">Time IN
+                                </th>
+                                <th class="text-bold">Time Out
+                                </th>
+                                <th class="text-bold">Work
+                                </th>
+                                <th class="text-bold">Early In
+                                </th>
+                                <th class="text-bold">Early Out
+                                </th>
+                                <th class="text-bold">Late In
+                                </th>
+                                <th class="text-bold">Late Out
+                                </th>
+                                <th class="text-bold">Remarks
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.dbViewAttData != null)
+                            {
+                                foreach (var item in Model.dbViewAttData)
+                                {
+                                <tr>
+                                    <td>
+                                        @item.AttDate.Value.ToString("ddd dd-MMM-yyyy")
+                                    </td>
+                                    <td>
+                                        @{
+                                    if (item.ShifMin > 0)
+                                    {
+                                        TimeSpan ts = new TimeSpan(0, item.ShifMin.Value, 0);  
+                                            <span>@ts.TotalHours.ToString("00"):@ts.Minutes.ToString("00")</span> 
+                                    }
+                                   
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (@item.TimeIn != null)
+                                        {
+                                            @item.TimeIn.Value.ToString("HH:MM tt")
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (@item.TimeOut != null)
+                                        {
+                                            @item.TimeOut.Value.ToString("HH:MM tt")
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                        if (item.WorkMin > 0)
+                                        {
+                                            TimeSpan ts = new TimeSpan(0, item.WorkMin.Value, 0);  
+                                            <span>@ts.TotalHours.ToString("00"):@ts.Minutes.ToString("00")</span> 
+                                        }
+                                   
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                        if (item.EarlyIn > 0)
+                                        {
+                                            TimeSpan ts = new TimeSpan(0, item.EarlyIn.Value, 0);  
+                                            <span>@ts.TotalHours.ToString("00"):@ts.Minutes.ToString("00")</span> 
+                                        }
+                                   
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                        if (item.EarlyOut > 0)
+                                        {
+                                            TimeSpan ts = new TimeSpan(0, item.EarlyOut.Value, 0);  
+                                            <span>@ts.TotalHours.ToString("00"):@ts.Minutes.ToString("00")</span> 
+                                        }
+                                   
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                        if (item.LateIn > 0)
+                                        {
+                                            TimeSpan ts = new TimeSpan(0, item.LateIn.Value, 0);  
+                                            <span>@ts.TotalHours.ToString("00"):@ts.Minutes.ToString("00")</span> 
+                                        }
+                                   
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                        if (item.LateOut > 0)
+                                        {
+                                            TimeSpan ts = new TimeSpan(0, item.LateOut.Value, 0);  
+                                            <span>@ts.TotalHours.ToString("00"):@ts.Minutes.ToString("00")</span> 
+                                        }
+                                   
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Remarks)
+                                    </td>
+                                </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </section>
+}

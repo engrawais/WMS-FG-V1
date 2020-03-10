@@ -1,0 +1,108 @@
+﻿@model IEnumerable<WMS.Models.EmailEntryForm>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+      <form class ="form-inline" role="form">
+          <div class="form-group"> <h3>Email Reports</h3> </div>
+          <div class="form-group pull-right SearchBtnMargin">
+              @using (Html.BeginForm("Index", "Email", FormMethod.Get))
+                {<p>Find @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control"})  
+                 <input class="btn btn-sm btn-success" type="submit" value="Search" /></p>}
+          </div> 
+      </form>  
+    </div>
+
+
+<table class="table table-bordered table-hover  table-condensed">
+    <tr class="table-header">
+        <th>
+            Email
+        </th>
+<th>
+            CC Email
+        </th>
+        <th>
+            Company/Location
+        </th>
+        <th>
+            Value
+        </th>
+        <th>
+            Dept/Section
+        </th>
+        <th>
+            Value
+        </th>
+        <th>
+            Type/Category
+        </th>
+        <th>
+            Value
+        </th>
+<th>Edit</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailAddress)
+        </td>
+ <td>
+            @Html.DisplayFor(modelItem => item.CCAddress)
+        </td>
+        <td>
+            @if(item.CriteriaComLoc=="C")
+            {<p>Company</p>}
+            else
+            {<p>Location</p>}
+        </td>
+        <td>
+            @if(item.CriteriaComLoc=="C")
+            {<p>@item.Company.CompName</p>}
+            else 
+            {<p>@item.Location.LocName</p>}
+        </td>
+        <td>
+            @if(item.CriteriaDepSec=="D")
+            {<p>Department</p>}
+            else if(item.CriteriaDepSec=="S")
+            {<p>Section</p>}
+            else if(item.CriteriaDepSec=="A")
+            {<p>ALL</p>}
+        </td>
+        <td>
+            @if (item.CriteriaDepSec == "S")
+            {<p>@item.Section.SectionName</p>}
+           
+            @if (item.CriteriaDepSec == "D")
+            {<p>@item.Department.DeptName</p>}
+            @if (item.CriteriaDepSec == "A")
+            {<p>All</p>}
+        </td>
+        <td>
+            @if(item.HasTypeOrCat=="T")
+            {<p>Type</p>}
+            else if(item.HasTypeOrCat=="C")
+            {<p>Category</p>}
+            else
+            {<p>ALL</p>}
+        </td>
+        <td>
+            @if(item.HasTypeOrCat=="T")
+            {<p>@item.EmpType.TypeName</p>}
+            else if(item.HasTypeOrCat=="C")
+            {<p>@item.Category.CatName</p>}
+            else
+            {<p>ALL</p>}
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id=item.ID }, new { @class = "glyphicon glyphicon-pencil" })
+        </td>
+    </tr>
+}
+
+</table>

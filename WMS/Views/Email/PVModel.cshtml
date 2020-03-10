@@ -1,0 +1,144 @@
+﻿@model WMS.Controllers.PVModel
+@{
+    Layout = null;
+}
+<form class="form-horizontal" action="~/Email/PVModel" enctype="multipart/form-data" method="post" id="EditEPostingForm">
+    @Html.HiddenFor(mode=>Model.EmailFormParentID)
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-3">Select Type</label>
+            <div class="col-md-3">
+                @Html.DropDownList("FilterTypeID", new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Location", Value = "Location", Selected=true},
+                        new SelectListItem { Text = "Section", Value = "Section"},
+                        new SelectListItem { Text = "Department", Value = "Department"},
+                        new SelectListItem { Text = "Type", Value = "Type"},
+                        new SelectListItem { Text = "Category", Value = "Category"},
+                        new SelectListItem { Text = "Company", Value = "Company"},
+                        new SelectListItem { Text = "Self", Value = "Self"}
+                    }, new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth", @id = "ddValue",name= "ddValue" })
+                @Html.ValidationMessageFor(model => model.FilterTypeID)
+            </div>
+        </div>
+        <div id="loc">
+            <div class="form-group">
+                <label class="control-label col-md-3">Location</label>
+                <div class="col-md-3">
+                    @Html.DropDownList("LocID", null, new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth", @id = "id" })
+                </div>
+            </div>
+        </div>
+        <div id="sec">
+            <div class="form-group">
+                <label class="control-label col-md-3">Section</label>
+                <div class="col-md-3">
+                    @Html.DropDownList("SecID", null, new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth", @id = "ids" })
+                </div>
+            </div>
+        </div>
+
+        <div id="dept">
+            <div class="form-group">
+                <label class="control-label col-md-3">Department</label>
+                <div class="col-md-3">
+                    @Html.DropDownList("DeptID", null, new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth", @id = "idm" })
+                </div>
+            </div>
+        </div>
+
+        <div id="type">
+            <div class="form-group" ">
+                <label class="control-label col-md-3">Type</label>
+                <div class="col-md-3">
+                    @Html.DropDownList("TypeID", null, new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth" })
+                </div>
+            </div>
+        </div>
+
+        <div id="cat">
+            <div class="form-group">
+                <label class="control-label col-md-3">Category</label>
+                <div class="col-md-3">
+                    @Html.DropDownList("CatID", null, new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth" })
+                </div>
+            </div>
+        </div>
+
+        <div id="company">
+            <div class="form-group">
+                <label class="control-label col-md-3">Company</label>
+                <div class="col-md-3">
+                    @Html.DropDownList("CompanyID", null, new { @class = "btn btn-defauslt dropdown-toggle dropdown ComboBoxWidth" })
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit"  class="btn btn-custom bg-blue-800" value="Submit">Submit</button>
+        </div>
+    </div>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $('#loc').show();
+            $('#sec').hide();
+            $('#dept').hide();
+            $('#type').hide();
+            $('#cat').hide();
+            $('#company').hide();
+            $("#ddValue").change(function () {
+                var selectedvalu = $("#ddValue").val();
+                switch (selectedvalu) {
+                    case 'Location':
+                        $('#loc').show();
+                        $('#sec').hide();
+                        $('#dept').hide();
+                        $('#type').hide();
+                        $('#cat').hide();
+                        $('#company').hide();
+                        break;
+                    case 'Section':
+                        $('#loc').hide();
+                        $('#sec').show();
+                        $('#dept').hide();
+                        $('#type').hide();
+                        $('#cat').hide();
+                        $('#company').hide();
+                        break;
+                    case 'Department':
+                        $('#loc').hide();
+                        $('#sec').hide();
+                        $('#dept').show();
+                        $('#type').hide();
+                        $('#cat').hide();
+                        $('#company').hide();
+                        break;
+                    case 'Type':
+                        $('#loc').hide();
+                        $('#sec').hide();
+                        $('#dept').hide();
+                        $('#type').show();
+                        $('#cat').hide();
+                        $('#company').hide();
+                        break;
+                    case 'Category':
+                        $('#loc').hide();
+                        $('#sec').hide();
+                        $('#dept').hide();
+                        $('#type').hide();
+                        $('#cat').show();
+                        $('#company').hide();
+                        break;
+                    case 'Company':
+                        $('#loc').hide();
+                        $('#sec').hide();
+                        $('#dept').hide();
+                        $('#type').hide();
+                        $('#cat').hide();
+                        $('#company').show();
+                        break;
+                }
+            })
+        });
+    </script>
+
